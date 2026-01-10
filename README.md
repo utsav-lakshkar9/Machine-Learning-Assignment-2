@@ -14,3 +14,12 @@ Developing an interactive application to enable the user to upload dataset and t
 | Naive Bayes | | | | | |
 | Random Forest (Ensemble) | | | | | |
 | XGBoost (Ensemble) | | | | | |
+
+| ML Model Name | Observation about model performance |
+| ------------- | ----------------------------------- |
+| Logistic Regression | |
+| Decision Tree | |
+| KNN | |
+| Naive Bayes | |
+| Random Forest (Ensemble) | |
+| XGBoost (Ensemble) | |
