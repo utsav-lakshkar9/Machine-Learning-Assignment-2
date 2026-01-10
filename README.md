@@ -4,9 +4,9 @@
 
 ### The models to be deployed
 1. Logistic Regression
-2. Decision Tree Classifi er
-3. K-Nearest Neighbor Classifi er
-4. Naive Bayes Classifi er - Gaussian or Multinomial
+2. Decision Tree Classifier
+3. K-Nearest Neighbor Classifier
+4. Naive Bayes Classifier - Gaussian or Multinomial
 5. Ensemble Model - Random Forest
 6. Ensemble Model - XGBoost
 
