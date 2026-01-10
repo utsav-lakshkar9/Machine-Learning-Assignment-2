@@ -16,4 +16,4 @@
 3. Precision
 4. Recall
 5. F1 Score
-6. Matthews Correlation Coeffi cient (MCC Score)
+6. Matthews Correlation Coefficient (MCC Score)
