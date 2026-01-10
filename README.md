@@ -7,7 +7,7 @@ Developing an interactive application to enable the user to upload dataset and t
 
 ## Models used
 | ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |
-| ------------- | -------- | --- | --------- | ------ | -- | --- |
+| :-------------: | :--------: | :---: | :---------: | :------: | :--: | :---: |
 | Logistic Regression | | | | | |
 | Decision Tree | | | | | |
 | KNN | | | | | |
@@ -16,7 +16,7 @@ Developing an interactive application to enable the user to upload dataset and t
 | XGBoost (Ensemble) | | | | | |
 
 | ML Model Name | Observation about model performance |
-| ------------- | ----------------------------------- |
+| :-------------: | :-----------------------------------: |
 | Logistic Regression | |
 | Decision Tree | |
 | KNN | |
