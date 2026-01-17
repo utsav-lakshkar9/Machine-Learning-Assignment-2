@@ -1,4 +1,4 @@
-# Machine Learning Assignment 2 - 2025AA05700
+# Multiclass Cancer Risk Classification from Simulated Patient Data
 
 ## Problem Statement
 Design and assess a **multiclass classification** system to predict **Cancer_Type** (Lung, Breast, Colon, Prostate, Skin) from simulated demographic, lifestyle, environmental, and genetic risk factors, with careful handling of class imbalance and evaluation using **F1-score, precision, recall, accuracy, AUC, and MCC**. Additionally, develop and deploy an **interactive Streamlit application** that allows users to upload a dataset, select a classification model, and visualize prediction results for population-level analysis.
