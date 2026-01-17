@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pickle
 from sklearn.ensemble import ExtraTreesClassifier,RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import matthews_corrcoef,roc_auc_score,confusion_matrix,classification_report
@@ -181,4 +182,7 @@ for i in range(len(model_names)):
     print("F1: ",macro_f1(y_test,y_pred_m,lst)*100)
     print("MCC: ",matthews_corrcoef(y_test,y_pred_m)*100)
     print("AUC: ",roc_auc_score(y_test,model.predict_proba(X_test),multi_class='ovr')*100)
+
+    with open(model_names[i]+'.pkl','wb') as file:
+        pickle.dump(model,file)
     
