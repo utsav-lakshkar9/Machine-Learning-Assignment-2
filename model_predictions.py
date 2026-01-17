@@ -162,6 +162,9 @@ def macro_f1(y_true, y_pred, lst):
     return val/len(lst)
 
 lst=list(y_train.unique())
+feature_names = X.columns.tolist()
+with open("feature_names.pkl", "wb") as f:
+    pickle.dump(feature_names, f)
 
 for i in range(len(model_names)):
     cm = confusion_matrix(np.array(y_test),predictions[i])
