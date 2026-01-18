@@ -62,7 +62,7 @@ predictions.append(y_pred_dtc)
 knn = KNeighborsClassifier(n_neighbors=5)
 knn.fit(X_train,y_train)
 y_pred_knn=knn.predict(X_test)
-models.append(dtc)
+models.append(knn)
 predictions.append(y_pred_knn)
 
 gnb = GaussianNB()
@@ -185,6 +185,7 @@ for i in range(len(model_names)):
     print("F1: ",macro_f1(y_test,y_pred_m,lst)*100)
     print("MCC: ",matthews_corrcoef(y_test,y_pred_m)*100)
     print("AUC: ",roc_auc_score(y_test,model.predict_proba(X_test),multi_class='ovr')*100)
+    print(classification_report(y_test,y_pred_m))
 
     with open(model_names[i]+'.pkl','wb') as file:
         pickle.dump(model,file)
