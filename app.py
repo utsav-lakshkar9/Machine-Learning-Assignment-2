@@ -46,16 +46,22 @@ def accuracy(y_true, y_pred,c):
 def precision(y_true, y_pred,c):
     tp=true_positive(y_true,y_pred,c)
     fp=false_positive(y_true,y_pred,c)    
+    if tp==0 and fp==0:
+        return 0    
     return tp/(tp+fp)
 
 def recall(y_true, y_pred,c):
     tp=true_positive(y_true,y_pred,c)
-    fn=false_negative(y_true,y_pred,c)    
+    fn=false_negative(y_true,y_pred,c)
+    if tp==0 and fn==0:
+        return 0    
     return tp/(tp+fn)
 
 def f1(y_true, y_pred,c):
     p=precision(y_true,y_pred,c)
     r=recall(y_true,y_pred,c)    
+    if p==0 and r==0:
+        return 0    
     return 2*p*r/(p+r)
 
 def macro_accuracy(y_true, y_pred, lst):
@@ -138,6 +144,10 @@ uploaded_file = st.file_uploader(
     "Upload test dataset (CSV only)",
     type=["csv"]
 )
+with open("./cancer-risk-factors.csv", "rb") as f:
+    csv_data = f.read()
+
+st.download_button("Download the training data",csv_data,"Training-data.csv",mime="text/csv")
 
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
@@ -167,7 +177,7 @@ if uploaded_file is not None:
         y_true = df["Cancer_Type"]
     
 
-    X_train,X_test,y_train,y_test=train_test_split(X,y_true,test_size=0.9,stratify=y_true,random_state=101)
+    X_train,X_test,y_train,y_test=train_test_split(X,y_true,test_size=0.6,stratify=y_true,random_state=101)
     scaler=StandardScaler()
     scaler.fit(X_train)
     X_train=scaler.transform(X_train)
