@@ -99,7 +99,6 @@ st_yled.init('style.css')
 
 # Test basic functionality
 st_yled.success("✅ st_yled is working correctly!")
-st_yled.button("Test Button", background_color="#4CAF50", color="white")
 
 # -------------------------------
 # Load models and feature names
