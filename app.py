@@ -97,9 +97,6 @@ st.markdown("<div style='text-align:center'>"
 # Initialize st_yled
 st_yled.init('style.css')
 
-# Test basic functionality
-st_yled.success("✅ st_yled is working correctly!")
-
 # -------------------------------
 # Load models and feature names
 # -------------------------------
