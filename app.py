@@ -159,7 +159,7 @@ if uploaded_file is not None:
     X = df[feature_names]
 
     st.subheader("Test Dataset Preview",text_alignment="center")
-    st.dataframe(X.head())
+    st.table(X.head())
 
     # Target (if available)
     y_true = None
@@ -189,10 +189,21 @@ if uploaded_file is not None:
             #print(y_pred)
 
         st.subheader("Prediction Output",text_alignment="center")
-        pred_counts = pd.Series(y_pred, name="Predicted Cancer Type").value_counts().to_frame("Count").reset_index()
-        st.markdown(
-            f"""<div style="display: flex; justify-content: center;">{pred_counts.to_html(index=False,justify="center")}</div>""",
-            unsafe_allow_html=True)
+        pred_counts = (pd.Series(y_pred).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="Count"))
+        st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts.to_html(index=False,justify="center")}</div>""",
+        unsafe_allow_html=True)
+
+        #st.dataframe(pred_counts,hide_index=True,use_container_width=True)
+        
+        
+        #st.table(pred_counts.style.hide(axis="index"))
+
+        
+        #pred_counts = pd.Series(y_pred, name="Predicted Cancer Type").value_counts().to_frame("Count").reset_index()
+        #st.table(pred_counts)
+        #st.markdown(
+        #    f"""<div style="display: flex; justify-content: center;">{pred_counts.to_html(index=False,justify="center")}</div>""",
+        #    unsafe_allow_html=True)
 
         #pred_counts = pd.Series(y_pred, name="Predicted Cancer Type").value_counts().to_frame("Count")
         #col1, col2, col3 = st.columns([1, 2, 1])
