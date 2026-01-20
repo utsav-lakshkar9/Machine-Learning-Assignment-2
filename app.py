@@ -167,7 +167,7 @@ if uploaded_file is not None:
         y_true = df["Cancer_Type"]
     
 
-    X_train,X_test,y_train,y_test=train_test_split(X,y_true,test_size=0.3,stratify=y_true,random_state=101)
+    X_train,X_test,y_train,y_test=train_test_split(X,y_true,test_size=0.9,stratify=y_true,random_state=101)
     scaler=StandardScaler()
     scaler.fit(X_train)
     X_train=scaler.transform(X_train)
