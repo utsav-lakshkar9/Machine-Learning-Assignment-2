@@ -95,7 +95,7 @@ st.markdown("<div style='text-align:center'>"
     "for multiclass cancer type prediction.</div>",unsafe_allow_html=True)
 
 # Initialize st_yled
-st_yled.init()
+st_yled.init('style.css')
 
 # Test basic functionality
 st_yled.success("✅ st_yled is working correctly!")
