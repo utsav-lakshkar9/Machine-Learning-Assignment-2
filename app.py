@@ -89,7 +89,7 @@ st.set_page_config(
     page_title="Multiclass Cancer Risk Classification from Simulated Patient Data",
     layout="wide")
 
-st.title("🧬 Multiclass Cancer Risk Classification from Simulated Patient Data 🧬",text_alignment="center")
+st.title("Multiclass Cancer Risk Classification from Simulated Patient Data",text_alignment="center")
 st.markdown("<div style='text-align:center'>"
     "Upload test data and evaluate trained machine learning models "
     "for multiclass cancer type prediction.</div>",unsafe_allow_html=True)
@@ -158,7 +158,7 @@ if uploaded_file is not None:
     # Align feature order
     X = df[feature_names]
 
-    st.subheader("📄 Test Dataset Preview",text_alignment="center")
+    st.subheader("Test Dataset Preview",text_alignment="center")
     st.dataframe(X.head())
 
     # Target (if available)
@@ -188,7 +188,7 @@ if uploaded_file is not None:
             y_pred = le.inverse_transform(model.predict(X_test))
             #print(y_pred)
 
-        st.subheader("🔍 Prediction Output",text_alignment="center")
+        st.subheader("Prediction Output",text_alignment="center")
         pred_counts = pd.Series(y_pred, name="Predicted Cancer Type").value_counts().to_frame("Count").reset_index()
         st.markdown(
             f"""<div style="display: flex; justify-content: center;">{pred_counts.to_html(index=False,justify="center")}</div>""",
@@ -207,7 +207,7 @@ if uploaded_file is not None:
     # Evaluation metrics
     # -------------------------------
     if y_true is not None:
-        st.subheader("📊 Model Evaluation Metrics",text_alignment="center")
+        st.subheader("Model Evaluation Metrics",text_alignment="center")
 
         col1, col2, col3, col4, col5, col6= st.columns(6)
 
@@ -227,7 +227,7 @@ if uploaded_file is not None:
         # -------------------------------
         # Classification report
         # -------------------------------
-        st.subheader("📑 Classification Report",text_alignment="center")
+        st.subheader("Classification Report",text_alignment="center")
         report = classification_report(y_test, y_pred, output_dict=True)
         col1, col2, col3 = st.columns([1, 4, 1])
         with col2:
@@ -241,7 +241,7 @@ if uploaded_file is not None:
         # -------------------------------
         # Confusion matrix
         # -------------------------------
-        st.subheader("🧩 Confusion Matrix",text_alignment="center")
+        st.subheader("Confusion Matrix",text_alignment="center")
         cm = confusion_matrix(y_test, y_pred)
 
         fig, ax = plt.subplots(figsize=(5,4),dpi=100)
@@ -259,6 +259,6 @@ if uploaded_file is not None:
 
     else:
         st.info(
-            "ℹ️ Ground truth label `Cancer_Type` not found. "
+            "Ground truth label `Cancer_Type` not found. "
             "Evaluation metrics are skipped."
         )
