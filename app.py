@@ -86,10 +86,10 @@ def macro_f1(y_true, y_pred, lst):
 # App configuration
 # -------------------------------
 st.set_page_config(
-    page_title="Cancer Type Classification",
+    page_title="Multiclass Cancer Risk Classification from Simulated Patient Data",
     layout="wide")
 
-st.title("🧬 Cancer Type Classification App",text_alignment="center")
+st.title("🧬 Multiclass Cancer Risk Classification from Simulated Patient Data",text_alignment="center")
 st.markdown("<div style='text-align:center'>"
     "Upload test data and evaluate trained machine learning models "
     "for multiclass cancer type prediction.</div>",unsafe_allow_html=True)
