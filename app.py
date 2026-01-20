@@ -91,7 +91,7 @@ st.set_page_config(
 
 st.title("Multiclass Cancer Risk Classification from Simulated Patient Data",text_alignment="center")
 st.markdown("<div style='text-align:center'>"
-    "a multiclass classification system to predict Cancer_Type (Lung, Breast, Colon, Prostate, Skin) from simulated demographic, lifestyle, environmental, and genetic risk factors"
+    "A multiclass classification system to predict Cancer Type (Lung, Breast, Colon, Prostate, Skin) from simulated demographic, lifestyle, environmental, and genetic risk factors"
     "</div>",unsafe_allow_html=True)
 
 # Initialize st_yled
