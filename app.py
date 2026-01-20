@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
+import st_yled
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import matthews_corrcoef,roc_auc_score,classification_report,confusion_matrix
@@ -92,6 +93,13 @@ st.title("🧬 Cancer Type Classification App",text_alignment="center")
 st.markdown("<div style='text-align:center'>"
     "Upload test data and evaluate trained machine learning models "
     "for multiclass cancer type prediction.</div>",unsafe_allow_html=True)
+
+# Initialize st_yled
+st_yled.init()
+
+# Test basic functionality
+st_yled.success("✅ st_yled is working correctly!")
+st_yled.button("Test Button", background_color="#4CAF50", color="white")
 
 # -------------------------------
 # Load models and feature names
