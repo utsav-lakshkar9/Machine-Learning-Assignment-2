@@ -168,7 +168,7 @@ if uploaded_file is not None:
     # Align feature order
     X = df[feature_names]
 
-    st.subheader("Test Dataset Preview",text_alignment="center")
+    st.header("Test Dataset Preview",text_alignment="center")
     st.table(X.head())
 
     # Target (if available)
@@ -185,9 +185,42 @@ if uploaded_file is not None:
 
     lst=list(y_train.unique())
 
+
     # -------------------------------
     # Prediction
     # -------------------------------
+    predictions=[]
+    #models=[]
+    logreg = load_model(MODEL_PATHS["Logistic Regression"]) 
+    y_pred_log=logreg.predict(X_test)
+    predictions.append(y_pred_log)
+    
+    dtc=load_model(MODEL_PATHS["Decision Tree"])
+    dtc.fit(X_train,y_train)
+    y_pred_dtc=dtc.predict(X_test)
+    predictions.append(y_pred_dtc)
+
+    knn = load_model(MODEL_PATHS["KNN Classifier"])
+    knn.fit(X_train,y_train)
+    y_pred_knn=knn.predict(X_test)
+    predictions.append(y_pred_knn)
+
+    gnb = load_model(MODEL_PATHS["Random Forest"])
+    gnb.fit(X_train,y_train)
+    y_pred_gnb=gnb.predict(X_test)
+    predictions.append(y_pred_gnb)
+
+    rfc=load_model(MODEL_PATHS["Naive Bayes"])
+    rfc.fit(X_train,y_train)
+    y_pred_rfc=rfc.predict(X_test)
+    predictions.append(y_pred_rfc)
+
+    xgb=load_model(MODEL_PATHS["XGBoost"])
+    le=LabelEncoder()
+    le.fit_transform(y_train)
+    y_pred_xgb=le.inverse_transform(xgb.predict(X_test))
+    predictions.append(y_pred_xgb)
+
     if model_name!="Combined View":
         model = load_model(MODEL_PATHS[model_name])
         if model_name!='XGBoost':
@@ -198,9 +231,45 @@ if uploaded_file is not None:
             y_pred = le.inverse_transform(model.predict(X_test))
             #print(y_pred)
 
-        st.subheader("Prediction Output",text_alignment="center")
+        st.header("Prediction Output",text_alignment="center")
         pred_counts = (pd.Series(y_pred).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="Count"))
         st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts.to_html(index=False,justify="center")}</div>""",
+        unsafe_allow_html=True)
+
+    else:
+        
+        st.header("Prediction Output",text_alignment="center")
+        
+        col1,col2,col3,col4,col5,col6 = st.columns(6)
+
+        pred_counts_log = (pd.Series(y_pred_log).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="Logistic Regression"))
+        with col1:
+            st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts_log.to_html(index=False,justify="center")}</div>""",
+        unsafe_allow_html=True)
+
+        pred_counts_dtc = (pd.Series(y_pred_dtc).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="Decision Tree Classifier"))
+        with col2:
+            st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts_dtc.to_html(index=False,justify="center")}</div>""",
+        unsafe_allow_html=True)
+
+        pred_counts_knn = (pd.Series(y_pred_knn).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="KNN Classifier"))
+        with col3:
+            st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts_knn.to_html(index=False,justify="center")}</div>""",
+        unsafe_allow_html=True)
+
+        pred_counts_gnb = (pd.Series(y_pred_gnb).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="Naive Bayes Classifier"))
+        with col4:
+            st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts_gnb.to_html(index=False,justify="center")}</div>""",
+        unsafe_allow_html=True)
+
+        pred_counts_rfc = (pd.Series(y_pred_rfc).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="Random Forest Classifier"))
+        with col5:
+            st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts_rfc.to_html(index=False,justify="center")}</div>""",
+        unsafe_allow_html=True)
+
+        pred_counts_xgb = (pd.Series(y_pred_xgb).value_counts().rename_axis("Predicted Cancer Type").reset_index(name="XGBoost Classifier"))
+        with col6:
+            st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts_xgb.to_html(index=False,justify="center")}</div>""",
         unsafe_allow_html=True)
 
         #st.dataframe(pred_counts,hide_index=True,use_container_width=True)
@@ -228,55 +297,157 @@ if uploaded_file is not None:
     # Evaluation metrics
     # -------------------------------
     if y_true is not None:
-        st.subheader("Model Evaluation Metrics",text_alignment="center")
+        st.header("Model Evaluation Metrics",text_alignment="center")
 
-        col1, col2, col3, col4, col5, col6= st.columns(6)
+        if model_name!="Combined View":    
 
-        col1.metric("Accuracy",f"{macro_accuracy(y_test, y_pred,lst)*100:.3f}")
+            col1, col2, col3, col4, col5, col6= st.columns(6)
 
-        col2.metric("Precision",f"{macro_precision(y_test, y_pred,lst)*100:.3f}")
+            col1.metric("Accuracy",f"{macro_accuracy(y_test, y_pred,lst):.3f}")
 
-        col3.metric("Recall",f"{macro_recall(y_test, y_pred,lst)*100:.3f}")
+            col2.metric("Precision",f"{macro_precision(y_test, y_pred,lst):.3f}")
 
-        col4.metric("F1",f"{macro_f1(y_test, y_pred,lst)*100:.3f}")
+            col3.metric("Recall",f"{macro_recall(y_test, y_pred,lst):.3f}")
 
-        col5.metric("MCC",f"{matthews_corrcoef(y_test,y_pred)*100:.3f}")
+            col4.metric("F1",f"{macro_f1(y_test, y_pred,lst):.3f}")
 
-        col6.metric("AUC",f"{roc_auc_score(y_test,model.predict_proba(X_test),multi_class='ovr')*100:.3f}")
+            col5.metric("MCC",f"{matthews_corrcoef(y_test,y_pred):.3f}")
 
+            col6.metric("AUC",f"{roc_auc_score(y_test,model.predict_proba(X_test),multi_class='ovr'):.3f}")
 
+        else:
+
+            for i in range(len(predictions)):
+                st.subheader(models[i],text_alignment="center")
+                col1, col2, col3, col4, col5, col6= st.columns(6)
+                y_pred=predictions[i]
+                model=load_model(MODEL_PATHS[models[i]])
+                col1.metric("Accuracy",f"{macro_accuracy(y_test, y_pred,lst):.3f}")
+
+                col2.metric("Precision",f"{macro_precision(y_test, y_pred,lst):.3f}")
+
+                col3.metric("Recall",f"{macro_recall(y_test, y_pred,lst):.3f}")
+
+                col4.metric("F1",f"{macro_f1(y_test, y_pred,lst):.3f}")
+
+                col5.metric("MCC",f"{matthews_corrcoef(y_test,y_pred):.3f}")
+
+                col6.metric("AUC",f"{roc_auc_score(y_test,model.predict_proba(X_test),multi_class='ovr'):.3f}")
+        
         # -------------------------------
         # Classification report
         # -------------------------------
-        st.subheader("Classification Report",text_alignment="center")
-        report = classification_report(y_test, y_pred, output_dict=True)
-        col1, col2, col3 = st.columns([1, 4, 1])
-        with col2:
-            report_df = pd.DataFrame(report).transpose().reset_index()
-            report_df.rename(columns={"index": "Class"}, inplace=True)
-            st.markdown(
-            f"""<div style="display: flex; justify-content: center;">{report_df.to_html(index=False,justify="center")}</div>""",
-            unsafe_allow_html=True)
+        st.header("Classification Report",text_alignment="center")
+        if model_name!="Combined View":
+            report = classification_report(y_test, y_pred, output_dict=True)
+            col1, col2, col3 = st.columns([1, 4, 1])
+            with col2:
+                report_df = pd.DataFrame(report).transpose().reset_index()
+                report_df.rename(columns={"index": "Class"}, inplace=True)
+                st.markdown(
+                f"""<div style="display: flex; justify-content: center;">{report_df.to_html(index=False,justify="center")}</div>""",
+                unsafe_allow_html=True)
 
+        else:
+            col1,col2,col3,col4,col5= st.columns([2,1,2,1,2])
+            #st.subheader(models[i],text_alignment="center")                
 
+            report_log = classification_report(y_test, y_pred_log, output_dict=True)
+            with col1:
+                report_df_log = pd.DataFrame(report_log).transpose().reset_index()
+                report_df_log.rename(columns={"index": "Logistic Regression"}, inplace=True)
+                st.markdown(
+                f"""<div style="display: flex; justify-content: center;">{report_df_log.to_html(index=False,justify="center")}</div>""",
+                unsafe_allow_html=True)
+
+            report_dtc = classification_report(y_test, y_pred_dtc, output_dict=True)
+            with col3:
+                report_df_dtc = pd.DataFrame(report_dtc).transpose().reset_index()
+                report_df_dtc.rename(columns={"index": "Decision Tree"}, inplace=True)
+                st.markdown(
+                f"""<div style="display: flex; justify-content: center;">{report_df_dtc.to_html(index=False,justify="center")}</div>""",
+                unsafe_allow_html=True)
+            
+            report_knn = classification_report(y_test, y_pred_knn, output_dict=True)
+            with col5:
+                report_df_knn = pd.DataFrame(report_knn).transpose().reset_index()
+                report_df_knn.rename(columns={"index": "KNN Classifier"}, inplace=True)
+                st.markdown(
+                f"""<div style="display: flex; justify-content: center;">{report_df_knn.to_html(index=False,justify="center")}</div>""",
+                unsafe_allow_html=True)
+            
+            report_gnb = classification_report(y_test, y_pred_gnb, output_dict=True)
+            with col1:
+                report_df_gnb = pd.DataFrame(report_gnb).transpose().reset_index()
+                report_df_gnb.rename(columns={"index": "Naive Bayes Classifier"}, inplace=True)
+                st.markdown(
+                f"""<div style="display: flex; justify-content: center;">{report_df_gnb.to_html(index=False,justify="center")}</div>""",
+                unsafe_allow_html=True)
+            
+            report_rfc = classification_report(y_test, y_pred_rfc, output_dict=True)
+            with col3:
+                report_df_rfc = pd.DataFrame(report_rfc).transpose().reset_index()
+                report_df_rfc.rename(columns={"index": "Random Forest Classifier"}, inplace=True)
+                st.markdown(
+                f"""<div style="display: flex; justify-content: center;">{report_df_rfc.to_html(index=False,justify="center")}</div>""",
+                unsafe_allow_html=True)
+            
+            report_xgb = classification_report(y_test, y_pred_xgb, output_dict=True)
+            with col5:
+                report_df_xgb = pd.DataFrame(report_xgb).transpose().reset_index()
+                report_df_xgb.rename(columns={"index": "Logistic Regression"}, inplace=True)
+                st.markdown(
+                f"""<div style="display: flex; justify-content: center;">{report_df_xgb.to_html(index=False,justify="center")}</div>""",
+                unsafe_allow_html=True)                        
+            
         # -------------------------------
         # Confusion matrix
         # -------------------------------
-        st.subheader("Confusion Matrix",text_alignment="center")
-        cm = confusion_matrix(y_test, y_pred)
-
-        fig, ax = plt.subplots(figsize=(5,4),dpi=100)
-        sns.heatmap(cm,annot=True,fmt='g',annot_kws={"size": 9},cbar_kws={"shrink": 0.8},xticklabels=sorted(y_test.unique()),yticklabels=sorted(y_test.unique()))
-        ax.set_title(model_name, fontsize=13, pad=20)
-        ax.set_xlabel("Predicted",fontsize=10)
-        ax.set_ylabel("Actual",fontsize=10)
-        ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=9)
-        ax.set_yticklabels(ax.get_yticklabels(), rotation=90, fontsize=9)
-        fig.tight_layout()
-        col1, col2, col3 = st.columns([1, 3, 1])
-        with col2:
-            st.pyplot(fig)
-        #st.pyplot(fig,use_container_width=False)
+        st.header("Confusion Matrix",text_alignment="center")
+        if model_name!="Combined View":
+            cm = confusion_matrix(y_test, y_pred)
+            fig, ax = plt.subplots(figsize=(5,4),dpi=100)
+            sns.heatmap(cm,annot=True,fmt='g',annot_kws={"size": 9},cbar_kws={"shrink": 0.8},xticklabels=sorted(y_test.unique()),yticklabels=sorted(y_test.unique()))
+            ax.set_title(model_name, fontsize=13, pad=20)
+            ax.set_xlabel("Predicted",fontsize=10)
+            ax.set_ylabel("Actual",fontsize=10)
+            ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=9)
+            ax.set_yticklabels(ax.get_yticklabels(), rotation=90, fontsize=9)
+            fig.tight_layout()
+            col1, col2, col3 = st.columns([1, 3, 1])
+            with col2:
+                st.pyplot(fig)
+            #st.pyplot(fig,use_container_width=False)
+        
+        else:
+            col1,col2,col3= st.columns(3)
+            figures=[]
+            for i in range(len(predictions)):
+                y_pred=predictions[i]                
+                cm = confusion_matrix(y_test, y_pred)
+                fig, ax = plt.subplots(figsize=(5,4),dpi=100)
+                sns.heatmap(cm,annot=True,fmt='g',annot_kws={"size": 9},cbar_kws={"shrink": 0.8},xticklabels=sorted(y_test.unique()),yticklabels=sorted(y_test.unique()))
+                ax.set_title(models[i], fontsize=13, pad=20)
+                ax.set_xlabel("Predicted",fontsize=10)
+                ax.set_ylabel("Actual",fontsize=10)
+                ax.set_xticklabels(ax.get_xticklabels(), rotation=0, fontsize=9)
+                ax.set_yticklabels(ax.get_yticklabels(), rotation=90, fontsize=9)
+                fig.tight_layout()
+                figures.append(fig)
+            
+            with col1:
+                st.pyplot(figures[0])
+            with col2:
+                st.pyplot(figures[1])
+            with col3:
+                st.pyplot(figures[2])
+            with col1:
+                st.pyplot(figures[3])
+            with col2:
+                st.pyplot(figures[4])
+            with col3:
+                st.pyplot(figures[5])
+            
 
     else:
         st.info(
