@@ -1,11 +1,8 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import pickle
 from sklearn.ensemble import ExtraTreesClassifier,RandomForestClassifier
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import matthews_corrcoef,roc_auc_score,confusion_matrix,classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import StandardScaler,LabelEncoder
