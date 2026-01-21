@@ -1,0 +1,94 @@
+/* App background */
+.stApp {
+    background-color: rgb(60, 109, 244);
+}
+
+/* Title styling */
+.stApp h1,h2 {
+    font-style: italic;
+    text-align: center;
+}
+
+div.stDownloadButton {
+    display: flex;            /* flex container */
+    justify-content: center;  /* horizontal centering */
+    width: 100%;              /* take full width */
+    margin: 10px 0;           /* optional spacing above/below */
+    text-align: center;
+}
+
+/* Center the download button */
+div.stDownloadButton > button {
+    display: block;
+    margin: 0 auto;   /* centers the button */
+    text-align: center;
+    background-color: rgb(68, 190, 221);  /* optional: button color */
+    color: white;               /* optional: text color */
+    font-weight: bold;          /* optional: bold text */
+    padding: 10px 20px;         /* optional: spacing inside button */
+    border-radius: 8px;         /* optional: rounded corners */
+    border: none;               /* optional: remove border */
+    cursor: pointer;            /* optional: pointer on hover */
+}
+
+div.stDownloadButton > button:hover {
+    background-color: #ffaa00;  /* optional: hover effect */
+}
+
+/* Markdown text */
+[data-testid="stMarkdownContainer"] {
+    text-align: center;
+}
+
+/* Table container */
+[data-testid="stTable"],
+[data-testid="stDataFrame"] {
+    display: flex;
+    justify-content: center;
+}
+
+/* Actual table */
+[data-testid="stTable"] table,
+[data-testid="stDataFrame"] table {
+    border-collapse: collapse !important;
+    border: 2px solid white !important;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Table header & cells */
+[data-testid="stTable"] th,
+[data-testid="stTable"] td,
+[data-testid="stDataFrame"] th,
+[data-testid="stDataFrame"] td {
+    border: 1px solid white !important;
+    padding: 10px !important;
+    text-align: center !important;
+    color: white !important;
+    font-size: 18px;
+}
+
+/* Header row */
+[data-testid="stTable"] th,
+[data-testid="stDataFrame"] th {
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+table {
+    border-collapse: collapse !important;
+    border: 2px solid white !important;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+ th,td {
+    border: 1px solid white !important;
+    padding: 10px !important;
+    text-align: center !important;
+    color: white !important;
+    font-size: 18px;
+}
+
+th {
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.15);
+}
