@@ -4,8 +4,72 @@
     color: white;
 }
 
-.stWarning{
+/* Force override Streamlit warning colors */
+[data-testid="stWarning"] {
+    --st-color-warning-text: white;
+    --st-color-warning-bg: black;
+    --st-color-warning-border: white;
+}
+
+/* Backup override (for nested elements) */
+[data-testid="stWarning"] p,
+[data-testid="stWarning"] span,
+[data-testid="stWarning"] div {
+    color: white !important;
+}
+
+/* Warning icon */
+[data-testid="stWarning"] svg {
+    fill: white !important;
+}
+
+
+[data-testid="stFileUploader"] button {
+    color: black;
+    background-color: white;
+}
+
+/* Selectbox outer container */
+[data-testid="stSelectbox"] {
     color: white;
+}
+
+/* Selected value box */
+[data-testid="stSelectbox"] > div > div {
+    background-color: white;
+    color: black !important;
+    border-radius: 10px;
+}
+
+/* Dropdown arrow */
+[data-testid="stSelectbox"] svg {
+    fill: black;
+}
+
+/* Label */
+[data-testid="stSelectbox"] label {
+    color: white;
+}
+
+/* File uploader container */
+[data-testid="stFileUploader"] label {
+    color: white;
+}
+
+/* Drag & drop text */
+[data-testid="stFileUploader"] span {
+    color: black !important;
+    font-weight: 500;
+}
+
+/* Upload box background */
+[data-testid="stFileUploader"] section {
+    background-color: #f4f6fa;
+    border-radius: 12px;
+}
+
+[data-testid="stMetric"] * {
+    color: white !important;
 }
 
 /* Title styling */
@@ -28,7 +92,7 @@ div.stDownloadButton > button {
     margin: 0 auto;   /* centers the button */
     text-align: center;
     background-color: rgb(68, 190, 221);  /* optional: button color */
-    color: white;               /* optional: text color */
+    color: black;               /* optional: text color */
     font-weight: bold;          /* optional: bold text */
     padding: 10px 20px;         /* optional: spacing inside button */
     border-radius: 8px;         /* optional: rounded corners */

@@ -153,15 +153,6 @@ if uploaded_file is not None:
     # -------------------------------
     # Feature validation
     # -------------------------------
-    missing_features = set(feature_names) - set(df.columns)
-    extra_features = set(df.columns) - set(feature_names)
-
-    if missing_features:
-        st.error(f"❌ Missing required features: {missing_features}")
-        st.stop()
-
-    if extra_features:
-        st.warning(f"⚠️ Extra columns ignored: {extra_features}")
 
     # Align feature order
     X = df[feature_names]
