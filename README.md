@@ -18,9 +18,9 @@ This dataset contains medically-informed simulated cancer risk profiles created 
 
 | ML Model Name | Observation about model performance |
 | :-------------: | :-----------------------------------: |
-| Logistic Regression | |
-| Decision Tree | |
-| KNN | |
-| Naive Bayes | |
-| Random Forest (Ensemble) | |
-| XGBoost (Ensemble) | |
+| Logistic Regression | Strong and well-balanced baseline model with high accuracy and excellent AUC |
+| Decision Tree | Simpler model with comparatively lower accuracy and weakest discrimination ability |
+| KNN | Moderate performance with balanced precision and recall but inferior to ensemble methods |
+| Naive Bayes | Lowest overall performance, likely due to unrealistic feature independence assumptions |
+| Random Forest (Ensemble) | Robust ensemble model providing stable and reliable performance across metrics |
+| XGBoost (Ensemble) | Best-performing model overall with superior accuracy, F1-score, and class separation |
