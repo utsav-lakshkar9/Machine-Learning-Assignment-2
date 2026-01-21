@@ -24,3 +24,7 @@ This dataset contains medically-informed simulated cancer risk profiles created 
 | Naive Bayes | Lowest overall performance, likely due to unrealistic feature independence assumptions |
 | Random Forest (Ensemble) | Robust ensemble model providing stable and reliable performance across metrics |
 | XGBoost (Ensemble) | Best-performing model overall with superior accuracy, F1-score, and class separation |
+
+## Deployment
+The application is deployed using Streamlit at the following link.
+https://machine-learning-assignment-2-pdtowewpaocvkvdqwahhdh.streamlit.app/
