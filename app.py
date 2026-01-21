@@ -190,7 +190,6 @@ if uploaded_file is not None:
     # Prediction
     # -------------------------------
     predictions=[]
-    #models=[]
     logreg = load_model(MODEL_PATHS["Logistic Regression"]) 
     y_pred_log=logreg.predict(X_test)
     predictions.append(y_pred_log)
@@ -272,27 +271,6 @@ if uploaded_file is not None:
             st.markdown(f"""<div style="display: flex; justify-content: center;">{pred_counts_xgb.to_html(index=False,justify="center")}</div>""",
         unsafe_allow_html=True)
 
-        #st.dataframe(pred_counts,hide_index=True,use_container_width=True)
-        
-        
-        #st.table(pred_counts.style.hide(axis="index"))
-
-        
-        #pred_counts = pd.Series(y_pred, name="Predicted Cancer Type").value_counts().to_frame("Count").reset_index()
-        #st.table(pred_counts)
-        #st.markdown(
-        #    f"""<div style="display: flex; justify-content: center;">{pred_counts.to_html(index=False,justify="center")}</div>""",
-        #    unsafe_allow_html=True)
-
-        #pred_counts = pd.Series(y_pred, name="Predicted Cancer Type").value_counts().to_frame("Count")
-        #col1, col2, col3 = st.columns([1, 2, 1])
-        #with col2:
-        #    st.table(pred_counts)
-
-        #col1, col2, col3 = st.columns([1, 1, 1])
-        #with col2:
-        #    st.markdown("<table style='text-align:center'>",pd.Series(y_pred, name="Predicted Cancer Type").value_counts(),"</div>",unsafe_allow_html=True)
-
     # -------------------------------
     # Evaluation metrics
     # -------------------------------
@@ -349,8 +327,7 @@ if uploaded_file is not None:
                 unsafe_allow_html=True)
 
         else:
-            col1,col2,col3,col4,col5= st.columns([2,1,2,1,2])
-            #st.subheader(models[i],text_alignment="center")                
+            col1,col2,col3,col4,col5= st.columns([2,1,2,1,2])                        
 
             report_log = classification_report(y_test, y_pred_log, output_dict=True)
             with col1:
@@ -416,8 +393,7 @@ if uploaded_file is not None:
             fig.tight_layout()
             col1, col2, col3 = st.columns([1, 3, 1])
             with col2:
-                st.pyplot(fig)
-            #st.pyplot(fig,use_container_width=False)
+                st.pyplot(fig)            
         
         else:
             col1,col2,col3= st.columns(3)
