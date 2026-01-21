@@ -19,18 +19,10 @@ data['Risk_Level']=data['Risk_Level'].map(risk_weight)
 X=data.drop(columns=['Patient_ID','Cancer_Type'])
 y=data['Cancer_Type']
 
-# Building the model
 extra_tree_forest = ExtraTreesClassifier(n_estimators = 5,criterion ='entropy')
-
-# Training the model
 extra_tree_forest.fit(X, y)
-
-# Computing the importance of each feature
 feature_importance = extra_tree_forest.feature_importances_
-
-# Normalizing the individual importances
 feature_importance_normalized = np.std([tree.feature_importances_ for tree in extra_tree_forest.estimators_],axis = 0)
-
 feature_mapping={}
 for i in range(len(X.columns)):
     if feature_importance_normalized[i]>=0.005:
