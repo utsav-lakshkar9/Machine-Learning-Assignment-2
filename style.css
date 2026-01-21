@@ -1,6 +1,11 @@
 /* App background */
 .stApp {
     background-color: rgb(60, 109, 244);
+    color: white;
+}
+
+.stWarning{
+    color: white;
 }
 
 /* Title styling */
