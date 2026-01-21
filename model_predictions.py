@@ -85,89 +85,13 @@ models.append(xgb)
 predictions.append(y_pred_xgb)
 
 model_names=[i.__class__.__name__ for i in models]
-
-def true_positive(y_true, y_pred,c):
-    tp = 0
-    for yt, yp in zip(y_true, y_pred):
-        if yt == c and yp == c:
-            tp += 1
-    return tp
-
-def true_negative(y_true, y_pred,c):
-    tn = 0
-    for yt, yp in zip(y_true, y_pred):
-        if yt !=c and yp != c:
-            tn += 1
-    return tn
-
-def false_positive(y_true, y_pred,c):
-    fp = 0
-    for yt, yp in zip(y_true, y_pred):
-        if yt != c and yp == c:
-            fp += 1
-    return fp
-
-def false_negative(y_true, y_pred,c):
-    fn = 0
-    for yt, yp in zip(y_true, y_pred):
-        if yt == c and yp != c:
-            fn += 1
-    return fn
-
-def accuracy(y_true, y_pred,c):
-    tp=true_positive(y_true,y_pred,c)
-    tn=true_negative(y_true,y_pred,c)
-    fp=false_positive(y_true,y_pred,c)
-    fn=false_negative(y_true,y_pred,c)
-    return (tp+tn)/(tp+tn+fp+fn)
-
-def precision(y_true, y_pred,c):
-    tp=true_positive(y_true,y_pred,c)
-    fp=false_positive(y_true,y_pred,c)    
-    return tp/(tp+fp)
-
-def recall(y_true, y_pred,c):
-    tp=true_positive(y_true,y_pred,c)
-    fn=false_negative(y_true,y_pred,c)    
-    return tp/(tp+fn)
-
-def f1(y_true, y_pred,c):
-    p=precision(y_true,y_pred,c)
-    r=recall(y_true,y_pred,c)    
-    return 2*p*r/(p+r)
-
-def macro_accuracy(y_true, y_pred, lst):
-    val=0
-    for i in lst:
-        val+=accuracy(y_true,y_pred,i)
-    return val/len(lst)
-
-def macro_precision(y_true, y_pred, lst):
-    val=0
-    for i in lst:
-        val+=precision(y_true,y_pred,i)
-    return val/len(lst)
-
-def macro_recall(y_true, y_pred, lst):
-    val=0
-    for i in lst:
-        val+=recall(y_true,y_pred,i)
-    return val/len(lst)
-
-def macro_f1(y_true, y_pred, lst):
-    val=0
-    for i in lst:
-        val+=f1(y_true,y_pred,i)
-    return val/len(lst)
-
-lst=list(y_train.unique())
 feature_names = X.columns.tolist()
-#with open("feature_names.pkl", "wb") as f:
-#    pickle.dump(feature_names, f)
+with open("feature_names.pkl", "wb") as f:
+    pickle.dump(feature_names, f)
 
-#for i in range(len(model_names)):
-    #model=models[i]
-    #y_pred_m=predictions[i]
-    #with open(model_names[i]+'.pkl','wb') as file:
-        #pickle.dump(model,file)
+for i in range(len(model_names)):
+    model=models[i]
+    y_pred_m=predictions[i]
+    with open(model_names[i]+'.pkl','wb') as file:
+        pickle.dump(model,file)
     
