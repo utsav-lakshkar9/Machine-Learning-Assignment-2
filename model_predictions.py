@@ -84,7 +84,6 @@ y_pred_xgb=le.inverse_transform(xgb.predict(X_test))
 models.append(xgb)
 predictions.append(y_pred_xgb)
 
-
 model_names=[i.__class__.__name__ for i in models]
 
 def true_positive(y_true, y_pred,c):
@@ -163,30 +162,12 @@ def macro_f1(y_true, y_pred, lst):
 
 lst=list(y_train.unique())
 feature_names = X.columns.tolist()
-with open("feature_names.pkl", "wb") as f:
-    pickle.dump(feature_names, f)
+#with open("feature_names.pkl", "wb") as f:
+#    pickle.dump(feature_names, f)
 
-for i in range(len(model_names)):
-    cm = confusion_matrix(np.array(y_test),predictions[i])
-    sns.heatmap(cm,annot=True,fmt='g',xticklabels=sorted(y_test.unique()),yticklabels=sorted(y_test.unique()))
-    plt.ylabel('Actual', fontsize=13)
-    plt.title(model_names[i], fontsize=17, pad=20)
-    plt.gca().xaxis.set_label_position('top') 
-    plt.xlabel('Prediction', fontsize=13)
-    plt.gca().xaxis.tick_top()
-    plt.show()
-    model=models[i]
-    y_pred_m=predictions[i]
-
-    print("\nFor ",model_names[i])
-    print("Accuracy: ",macro_accuracy(y_test,y_pred_m,lst)*100)
-    print("Precision: ",macro_precision(y_test,y_pred_m,lst)*100)
-    print("Recall: ",macro_recall(y_test,y_pred_m,lst)*100)
-    print("F1: ",macro_f1(y_test,y_pred_m,lst)*100)
-    print("MCC: ",matthews_corrcoef(y_test,y_pred_m)*100)
-    print("AUC: ",roc_auc_score(y_test,model.predict_proba(X_test),multi_class='ovr')*100)
-    print(classification_report(y_test,y_pred_m))
-
-    with open(model_names[i]+'.pkl','wb') as file:
-        pickle.dump(model,file)
+#for i in range(len(model_names)):
+    #model=models[i]
+    #y_pred_m=predictions[i]
+    #with open(model_names[i]+'.pkl','wb') as file:
+        #pickle.dump(model,file)
     
